@@ -125,3 +125,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Ensure access to the dashboard while working locally or in a codespace
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000"]
