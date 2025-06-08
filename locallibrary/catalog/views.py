@@ -28,3 +28,16 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
+def book_list(request):
+
+    #Titles and authors of available books
+    available = BookInstance.objects.filter(status__exact='a')
+    available_books = [(instance.book.title, instance.book.author) for instance in available]
+
+    #Remove duplicate titles and sort by title ascending
+    available_books = list(set(available_books))
+    available_books.sort(key = lambda x: x[0])
+
+    context = {"available_books": available_books}
+
+    return render(request, 'book_list.html', context = context)
