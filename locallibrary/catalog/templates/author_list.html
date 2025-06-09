@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Author List</h1>
+  <p>The library has the books by the following authors:</p>
+  {% if authors %}
+    <ul>
+      {% for author in authors %}
+      <li>
+        <p>{{ author.first_name }} {{ author.last_name }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no authors with books in the library.</p>
+  {% endif %}
+{% endblock %}

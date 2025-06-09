@@ -47,6 +47,7 @@ def book_list(request):
 
 class BookListView(generic.ListView):
     model = Book
+    paginate_by = 10
     context_object_name = 'books'   # your own name for the list as a template variable
 
     def get_context_data(self, **kwargs):
@@ -56,3 +57,10 @@ class BookListView(generic.ListView):
     
 class BookDetailView(generic.DetailView):
     model = Book
+
+def authors(request):
+
+    authors = Author.objects.all()
+    context = {"authors": authors}
+
+    return render(request, 'author_list.html', context = context)
