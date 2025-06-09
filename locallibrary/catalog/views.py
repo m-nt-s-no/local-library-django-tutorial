@@ -64,3 +64,10 @@ def authors(request):
     context = {"authors": authors}
 
     return render(request, 'author_list.html', context = context)
+
+def author_detail(request, pk):
+
+    author = Author.objects.get(pk = pk)
+    context = {"author": author}
+
+    return render(request, 'author_detail.html', context = context)
