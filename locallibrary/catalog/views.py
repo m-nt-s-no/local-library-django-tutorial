@@ -58,6 +58,15 @@ class BookListView(generic.ListView):
 class BookDetailView(generic.DetailView):
     model = Book
 
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 10
+    context_object_name = 'authors'  
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
+"""
 def authors(request):
 
     authors = Author.objects.all()
@@ -71,3 +80,4 @@ def author_detail(request, pk):
     context = {"author": author}
 
     return render(request, 'author_detail.html', context = context)
+"""
