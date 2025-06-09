@@ -132,3 +132,7 @@ CSRF_TRUSTED_ORIGINS = ["https://localhost:8000"]
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+# Logs any emails sent to the console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
