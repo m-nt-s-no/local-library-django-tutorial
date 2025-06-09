@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,8 +59,8 @@ ROOT_URLCONF = "locallibrary.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -128,3 +129,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Ensure access to the dashboard while working locally or in a codespace
 CSRF_TRUSTED_ORIGINS = ["https://localhost:8000"]
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
