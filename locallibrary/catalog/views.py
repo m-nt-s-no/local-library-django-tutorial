@@ -99,6 +99,20 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
             .order_by('due_back')
         )
     
+def book_update(request, pk):
+    book = Book.objects.get(pk = pk)
+    if request.method == "POST":
+        form = BookForm(request.POST, instance = book)
+        if form.is_valid():
+            form.save()
+            return redirect("book-detail", pk = book.pk)
+    else:
+        form = BookForm(instance = book)
+
+    context = {"form": form}
+
+    return render(request, "catalog/book_form.html", context=context)
+
 def book_create(request):
     if request.method == "POST":
         form = BookForm(request.POST)
