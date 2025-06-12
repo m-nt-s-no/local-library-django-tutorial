@@ -125,3 +125,8 @@ def book_create(request):
     context = {"form": form}
 
     return render(request, "catalog/book_form.html", context=context)
+
+def book_delete(request, pk):
+    book = Book.objects.get(pk = pk)
+    book.delete()
+    return redirect("books")
