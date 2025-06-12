@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Book, Author, BookInstance, Genre
 from django.views import generic
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import BookForm
 
 @login_required
 def index(request):
@@ -99,34 +99,14 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
             .order_by('due_back')
         )
     
-def book_update(request, pk):
-    book = Book.objects.get(pk = pk)
-    if request.method == "POST":
-        form = BookForm(request.POST, instance = book)
-        if form.is_valid():
-            form.save()
-            return redirect("book-detail", pk = book.pk)
-    else:
-        form = BookForm(instance = book)
+class BookCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
 
-    context = {"form": form}
+class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
 
-    return render(request, "catalog/book_form.html", context=context)
-
-def book_create(request):
-    if request.method == "POST":
-        form = BookForm(request.POST)
-        if form.is_valid():
-            created_book = form.save()
-            return redirect("book-detail", pk = created_book.pk)
-    else:
-        form = BookForm()
-    
-    context = {"form": form}
-
-    return render(request, "catalog/book_form.html", context=context)
-
-def book_delete(request, pk):
-    book = Book.objects.get(pk = pk)
-    book.delete()
-    return redirect("books")
+class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')

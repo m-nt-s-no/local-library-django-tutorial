@@ -8,11 +8,8 @@
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
   <p><strong>Language:</strong> {{ book.language }}</p>
   <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
-  <p><a href="{% url 'book-update' book.pk %}">Update this book</a></p>
-  <form action="{% url 'book-delete' book.pk %}" method="post">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-danger" value="Delete">
-  </form>
+  <a href="{% url 'book-update' book.pk %}">Update Book</a>
+  <a href="{% url 'book-delete' book.pk %}">Delete Book</a>
   <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
 
